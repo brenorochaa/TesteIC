@@ -1,6 +1,6 @@
 import streamlit as st
 #from PIL import Image
-#img = open('random_logo.png')
+#img = open('Users\breno\Downloads\random_logo')
 #st.image(img, caption = 'Random UFPE')
 st.title("Engenharia de Manutenção - RANDOM UFPE")
 st.header("Políticas de manutenção por idade")
@@ -9,6 +9,6 @@ st.write("Encontrar os parâmetros Beta e Eta para se aplicar na distribuição 
 if st.checkbox("Estou disposto a participar"):
     st.text("Muito bem! vamos nessa!")
 nome = st.text_input("Qual o seu nome?")
-st.write("nome registrado!")
 status = st.selectbox("Qual sua atuação: ", ['Estudante', 'Professor', 'Outro'])
 st.write('Sua opção escolhida foi: ',status)
+
