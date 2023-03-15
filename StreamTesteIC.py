@@ -1,7 +1,7 @@
 import streamlit as st
 from PIL import Image
 img = open('random_logo.png')
-st.image(img, caption = 'Random UFPE')
+st.image(img)
 st.title("Engenharia de Manutenção - RANDOM UFPE")
 st.header("Políticas de manutenção por idade")
 st.subheader("Como encontrar os parâmetros Beta e Eta pra a distribuição Weibull")
