@@ -10,7 +10,7 @@ if st.checkbox("Estou disposto a participar","Digite aqui"):
     st.text("Muito bem! vamos nessa!")
 nome = st.text_input("Qual o seu nome?")
 if(st.button('Enviar')):
-    result = name.title()
+    result = nome.title()
     st.success(result)
 status = st.selectbox("Qual sua atuação: ", ['Estudante', 'Professor', 'Outro'])
 st.write('Sua opção escolhida foi: ',status)
