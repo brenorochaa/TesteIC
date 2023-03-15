@@ -1,6 +1,6 @@
 import streamlit as st
 from PIL import Image
-img = open('random_logo.png')
+img = 'random_logo.png'
 st.image(img)
 st.title("Engenharia de Manutenção - RANDOM UFPE")
 st.header("Políticas de manutenção por idade")
