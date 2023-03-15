@@ -13,8 +13,5 @@ if(st.button('Enviar')):
     result = nome.title()
     st.success(result)
 status = st.selectbox("Qual sua atuação: ", ['Estudante', 'Professor', 'Outro'])
-if(st.button('Enviar')):
-    result = status.title()
-    st.success(result)
 st.write('Sua opção escolhida foi: ',status)
 
