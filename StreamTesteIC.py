@@ -1,17 +1,91 @@
+import numpy as np
+from scipy import stats as sp
 import streamlit as st
-from PIL import Image
-img = 'random_logo.png'
-st.image(img)
-st.title("RANDOM UFPE")
-st.header("Políticas de manutenção por idade")
-st.subheader("Como encontrar os parâmetros Beta e Eta pra a distribuição Weibull")
-st.write("Encontrar os parâmetros Beta e Eta para se aplicar na distribuição de probabilidade Weibull não é uma tarefa fácil. Para isso, desenvolvemos esta ferramenta de modo que utiliza dados estatísticos a fim de simplificar o processo de obtenção desse resultado")
-if st.checkbox("Estou disposto a participar","Digite aqui"):
-    st.text("Muito bem! vamos nessa!")
-nome = st.text_input("Qual o seu nome?")
-if(st.button('Enviar')):
-    result = nome.title()
-    st.success(result)
-status = st.selectbox("Qual sua atuação: ", ['Estudante', 'Professor', 'Outro'])
-st.write('Sua opção escolhida foi: ',status)
 
+
+def ajuste_weibull():
+    
+    data_str = str(dados)
+    data = np.fromstring(data_str,sep =',') 
+    
+    parameters_1 = sp.exponweib.fit(data,floc=0,f0=1)
+    fitness_1 = sp.kstest(data,"exponweib",parameters_1)
+    
+    p_forma = parameters_1[1]
+    p_escala = parameters_1[3]
+    
+    p_valor = fitness_1[1]
+    
+    if p_valor < 0.05:
+        
+        st.write(f'''
+        Parâmetro de forma = {p_forma}
+        Parâmetro de escala = {p_escala}
+        
+        Teste de hipótese:
+        p-valor = {p_valor}
+        
+        Com um nível de significância de 5%,
+        REJEITA-SE a hipótese de que os dados 
+        seguem uma distribuição Weibull''')
+        
+    else:
+        st.write(f'''
+        Parâmetro de forma = {p_forma}
+        Parâmetro de escala = {p_escala}
+        
+        Teste de hipótese:
+        p-valor = {p_valor}
+        
+        Com um nível de significância de 5%,
+        ACEITA-SE a hipótese de que os dados 
+        seguem uma distribuição Weibull''')
+        
+
+def ajuste_exponencial():
+    
+    data_str = str(dados)
+    data = np.fromstring(data_str,sep =',') 
+    
+    parameters_2 = sp.expon.fit(data,floc=0)
+    fitness_2 = sp.kstest(data,"expon",parameters_2)
+    
+    escala = parameters_2[1]
+    tx = 1/escala
+    
+    p_valor = fitness_2[1]
+    
+    if p_valor < 0.05:
+        
+        st.write(f'''
+        Taxa (lambda) = {tx}
+        
+        Teste de hipótese:
+        p-valor = {p_valor}
+        
+        Com um nível de significância de 5%,
+        REJEITA-SE a hipótese de que os dados 
+        seguem uma distribuição exponencial''')
+        
+    else:
+        st.write(f'''
+        Taxa (lambda) = {tx}
+        
+        Teste de hipótese:
+        p-valor = {p_valor}
+        
+        Com um nível de significância de 5%,
+        ACEITA-SE a hipótese de que os dados 
+        seguem uma distribuição exponencial''')
+        
+
+st.title('Ajuste de distribuições de probabilidade')
+
+st.markdown('Insira os dados separados por vírgula')
+dados = st.text_input(label='Dados')
+
+if st.button('Distribuição Weibull'):
+    ajuste_weibull()
+
+if st.button('Distribuição Exponencial'):
+    ajuste_exponencial()
