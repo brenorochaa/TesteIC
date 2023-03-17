@@ -1,5 +1,5 @@
 import numpy as np
-import stats
+from scipy import stats
 import streamlit as st
 
 
