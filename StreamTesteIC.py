@@ -1,5 +1,5 @@
 import numpy as np
-from scipy import stats as sp
+from scipy import stats
 import streamlit as st
 
 
@@ -8,8 +8,8 @@ def ajuste_weibull():
     data_str = str(dados)
     data = np.fromstring(data_str,sep =',') 
     
-    parameters_1 = sp.exponweib.fit(data,floc=0,f0=1)
-    fitness_1 = sp.kstest(data,"exponweib",parameters_1)
+    parameters_1 = stats.exponweib.fit(data,floc=0,f0=1)
+    fitness_1 = stats.kstest(data,"exponweib",parameters_1)
     
     p_forma = parameters_1[1]
     p_escala = parameters_1[3]
@@ -47,8 +47,8 @@ def ajuste_exponencial():
     data_str = str(dados)
     data = np.fromstring(data_str,sep =',') 
     
-    parameters_2 = sp.expon.fit(data,floc=0)
-    fitness_2 = sp.kstest(data,"expon",parameters_2)
+    parameters_2 = stats.expon.fit(data,floc=0)
+    fitness_2 = stats.kstest(data,"expon",parameters_2)
     
     escala = parameters_2[1]
     tx = 1/escala
